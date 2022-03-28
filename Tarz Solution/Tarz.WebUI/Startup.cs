@@ -20,12 +20,17 @@ namespace Tarz.WebUI
         }
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddControllersWithViews();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            
+            app.UseStaticFiles();
+            app.UseRouting();
+            app.UseEndpoints(cfg=> {
+                cfg.MapControllerRoute(
+                    "default", "{controller=home}/{action=index}/{id?}");
+            });
         }
     }
 }
