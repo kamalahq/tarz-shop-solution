@@ -17,5 +17,10 @@ namespace Tarz.WebUI.Controllers
         {
             return View();
         }
+
+        public IActionResult AboutUs()
+        {
+            return View();
+        }
     }
 }
