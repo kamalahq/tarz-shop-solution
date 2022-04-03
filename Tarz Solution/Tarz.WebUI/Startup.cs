@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -8,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Tarz.WebUI.Models.DataContexts;
 
 namespace Tarz.WebUI
 {
@@ -25,6 +27,10 @@ namespace Tarz.WebUI
             services.AddRouting(cfg =>
             {
                 cfg.LowercaseUrls = true;
+            });
+            services.AddDbContext<TarzDbContext>(cfg =>
+            {
+                cfg.UseSqlServer("data source=.;catalog=Tarz;user id=sa;password=query");
             });
         }
 
