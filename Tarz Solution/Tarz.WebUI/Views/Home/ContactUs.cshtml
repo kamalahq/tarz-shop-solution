@@ -1,4 +1,4 @@
-﻿
+﻿@model Contact
 @{
     ViewData["Title"] = "ContactUs";
 }
@@ -118,14 +118,23 @@
             <div class="row">
                 <div class="col-lg-8 offset-lg-2">
                     <div class="full">
-                        <form action="index.html">
-                            <fieldset>
-                                <input type="text" placeholder="Enter your full name" name="name" required />
-                                <input type="email" placeholder="Enter your email address" name="email" required />
-                                <input type="text" placeholder="Enter subject" name="subject" required />
-                                <textarea placeholder="Enter your message" required></textarea>
-                                <input type="submit" value="Submit" />
-                            </fieldset>
+                        <form method="post">
+                            @if (!string.IsNullOrWhiteSpace(ViewBag.Message))
+                            {
+                                <p class="alert alert-info">
+                                    @ViewBag.Message
+                                </p>
+                            }
+                        <fieldset>
+                            <input type="text" placeholder="Ad və soyadınızı daxil edın" name="name" asp-for="Name" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                            <input type="email" placeholder="Mail adını daxil edin" name="email" asp-for="Email" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                            <input type="text" placeholder="Mövzü qeyd edin" name="subject" required />
+                            <textarea placeholder="Mətni daxil edin" asp-for="Comment"></textarea>
+                            <span asp-validation-for="Comment" class="text-danger"></span>
+                            <input type="submit" value="Göndər" />
+                        </fieldset>
                         </form>
                     </div>
                 </div>

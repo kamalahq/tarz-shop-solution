@@ -30,18 +30,36 @@ namespace Tarz.WebUI
             });
             services.AddDbContext<TarzDbContext>(cfg =>
             {
-                cfg.UseSqlServer("data source=.;catalog=Tarz;user id=sa;password=query");
+                cfg.UseSqlServer(configuration.GetConnectionString("cString"));
             });
         }
+
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseStaticFiles();
             app.UseRouting();
-            app.UseEndpoints(cfg=> {
+            app.UseEndpoints(cfg =>
+            {
+
+
+
                 cfg.MapControllerRoute(
-                    "default", "{controller=home}/{action=index}/{id?}");
+                   name: "default",
+                   pattern: "{controller}/{action}/{id?}",
+                   defaults: new
+                   {
+                       controller = "home",
+                       action = "index"
+                   });
+
+                cfg.MapAreaControllerRoute(
+                 name: "areas",
+                 areaName: "Admin",
+                  pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}"
+                );
             });
         }
     }
 }
+
