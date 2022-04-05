@@ -40,5 +40,47 @@ namespace Tarz.WebUI.Areas.Admin.Controllers
            
             return View(model);
         }
+        public async Task <IActionResult> Edit(int id)
+        {
+            if (id <1)
+            {
+                return NotFound();//404
+            }
+            var entity = await db.Brands.FirstOrDefaultAsync(b=>b.Id == id);
+
+            if (entity == null)
+            {
+                return NotFound();//404
+            }
+
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit([FromRoute]int id,Brand model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            if (id!= model.Id || id < 1)
+            {
+                return BadRequest();
+            }
+            var entity = await db.Brands.FirstOrDefaultAsync(b => b.Id == id);
+
+            if (entity == null)
+            {
+                return NotFound();//404
+            }
+            entity.Name = model.Name;
+            entity.Description = model.Description;
+
+            //db.Brands.Update(entity)
+            await db.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+
+            
+        }
     }
 }

@@ -42,7 +42,11 @@ namespace Tarz.WebUI
             app.UseEndpoints(cfg =>
             {
 
-
+                cfg.MapAreaControllerRoute(
+                 name: "areas",
+                 areaName: "Admin",
+                  pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}"
+                );
 
                 cfg.MapControllerRoute(
                    name: "default",
@@ -52,12 +56,6 @@ namespace Tarz.WebUI
                        controller = "home",
                        action = "index"
                    });
-
-                cfg.MapAreaControllerRoute(
-                 name: "areas",
-                 areaName: "Admin",
-                  pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}"
-                );
             });
         }
     }

@@ -34,6 +34,7 @@
     <link rel="stylesheet" type="text/css" href="~/admin/assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="~/admin/assets/css/jquery.mCustomScrollbar.css">
     <link rel="stylesheet" href="~/admin/assets/scss/partials/menu/_pcmenu.html">
+    <script src="https://kit.fontawesome.com/183501d1bc.js" crossorigin="anonymous"></script>
     <style>
         th.row-identifer,
         td.row-identifer {
@@ -42,10 +43,20 @@
             max-width: 70px;
             text-align: right;
         }
+        th.cell-operation,
+        td.cell-operation {
+            max-width: 100px;
+            min-width: 100px;
+            text-align: right;
+        }
+        th.cell-operation i,
+        td.cell-operation i{
+           margin-right:0;
+        }
 
         label.required {
             position: relative;
-            padding-right:10px;
+            padding-right: 10px;
         }
 
             label.required:after {
@@ -53,10 +64,11 @@
                 content: '*';
                 display: inline-block;
                 color: red;
-                right:0;
-                top:0;
+                margin-left: 5px;
+                top: 5px;
             }
     </style>
+    @RenderSection("addcss", required: false)
 </head>
 
 <body>
@@ -109,7 +121,7 @@
                         <a class="mobile-menu" id="mobile-collapse" href="#!">
                             <i class="feather icon-menu"></i>
                         </a>
-                        <a href="../index.html">
+                        <a asp-controller="Dashboard" asp-action="Index">
                             <img class="img-fluid" src="~/admin/assets/images/logo.png" alt="Theme-Logo" />
                         </a>
                         <a class="mobile-options">
@@ -386,7 +398,7 @@
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class="">
-                                            <a href="../index.html">
+                                            <a asp-controller="Dashboard" asp-action="Index">
                                                 <span class="pcoded-mtext">Default</span>
                                             </a>
                                         </li>
@@ -1774,7 +1786,7 @@
                             <!-- Main-body start -->
                             <div class="main-body">
                                 <div class="page-wrapper">
-                                   @RenderBody()
+                                    @RenderBody()
                                 </div>
                             </div>
                             <div id="styleSelector">
@@ -1859,6 +1871,9 @@
     <script src="~/admin/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
     <!-- Custom js -->
     <script type="text/javascript" src="~/admin/assets/js/script.js"></script>
+
+    @RenderSection("addjs", required: false)
+    
 
 </body>
 
