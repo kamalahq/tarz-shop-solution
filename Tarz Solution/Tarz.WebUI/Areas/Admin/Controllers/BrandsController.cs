@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Tarz.WebUI.Models.DataContexts;
+using Tarz.WebUI.Models.Entities;
 
 namespace Tarz.WebUI.Areas.Admin.Controllers
 {
@@ -20,6 +21,24 @@ namespace Tarz.WebUI.Areas.Admin.Controllers
         {
             var data =await db.Brands.ToListAsync();
             return View(data);
+        }
+
+        public  IActionResult Create()
+        {
+           
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create(Brand model)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Brands.Add(model);
+               await db.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+           
+            return View(model);
         }
     }
 }

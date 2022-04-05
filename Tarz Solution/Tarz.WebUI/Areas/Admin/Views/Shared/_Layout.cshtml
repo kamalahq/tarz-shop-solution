@@ -34,6 +34,29 @@
     <link rel="stylesheet" type="text/css" href="~/admin/assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="~/admin/assets/css/jquery.mCustomScrollbar.css">
     <link rel="stylesheet" href="~/admin/assets/scss/partials/menu/_pcmenu.html">
+    <style>
+        th.row-identifer,
+        td.row-identifer {
+            width: 70px;
+            min-width: 70px;
+            max-width: 70px;
+            text-align: right;
+        }
+
+        label.required {
+            position: relative;
+            padding-right:10px;
+        }
+
+            label.required:after {
+                position: absolute;
+                content: '*';
+                display: inline-block;
+                color: red;
+                right:0;
+                top:0;
+            }
+    </style>
 </head>
 
 <body>
@@ -379,6 +402,13 @@
                                             </a>
                                         </li>
                                     </ul>
+                                </li>
+
+                                <li class="">
+                                    <a asp-controller="Brands" asp-action="Index">
+                                        <span class="pcoded-micon"><i class="feather icon-menu"></i></span>
+                                        <span class="pcoded-mtext">Brands</span>
+                                    </a>
                                 </li>
                                 <li class="pcoded-hasmenu">
                                     <a href="javascript:void(0)">
