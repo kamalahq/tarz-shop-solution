@@ -16,5 +16,6 @@ namespace Tarz.WebUI.Models.DataContexts
         }
 
         public DbSet<Contact> Contacts { get; set; }
+        public DbSet<Brand> Brands { get; set; }
     }
 }
