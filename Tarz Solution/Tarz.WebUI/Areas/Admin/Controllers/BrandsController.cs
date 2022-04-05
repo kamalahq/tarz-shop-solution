@@ -22,6 +22,21 @@ namespace Tarz.WebUI.Areas.Admin.Controllers
             var data =await db.Brands.ToListAsync();
             return View(data);
         }
+        public async Task<IActionResult>Details(int id)
+        {
+            if (id < 1)
+            {
+                return NotFound();//404
+            }
+            var entity = await db.Brands.FirstOrDefaultAsync(b => b.Id == id);
+
+            if (entity == null)
+            {
+                return NotFound();//404
+            }
+
+            return View(entity);
+        }
 
         public  IActionResult Create()
         {
@@ -53,7 +68,7 @@ namespace Tarz.WebUI.Areas.Admin.Controllers
                 return NotFound();//404
             }
 
-            return View();
+            return View(entity);
         }
         [HttpPost]
         public async Task<IActionResult> Edit([FromRoute]int id,Brand model)
