@@ -103,12 +103,36 @@
 </div>
 
 @section addjs{
-    <script>
-        function removeEntity(entityId, name) {
-            if (confirm(`'${name}' -adli brendi silmek isteyirsiniz?`) == true)
-            {
-                alert('silindi');
-            }
+ <script src="~/libs/sweetalert/sweetalert.min.js"></script>
+ <script>
+         function removeEntity(entityId,name) {
+            swal({
+                title: "Diqqet!",
+                text: `'${name}'-adli brendisilmek istediyinizden eminsiniz? `,
+                icon: "warning",
+                buttons: ['Xeyr','Beli']
+            })
+                .then(willDelete => {
+                    if (willDelete) {
+
+                        $.ajax({
+                            url: `@Url.Action("Delete")`,
+                            type: `POST`,
+                            data: {
+                                id: entityId
+                            },
+                            contentType: 'application/x-www-form-urlencoded',
+                            dataType: 'json',
+                            success: function (response) {
+                                if (response.error == true); {
+                                    toastr.error(response.message, 'Xeta!');
+                            }
+
+                            },
+
+                        });
+                    }
+                });
         };
-    </script>
+ </script>
 }

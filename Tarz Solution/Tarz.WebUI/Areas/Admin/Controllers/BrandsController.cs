@@ -19,7 +19,10 @@ namespace Tarz.WebUI.Areas.Admin.Controllers
         }
         public async  Task <IActionResult> Index()
         {
-            var data =await db.Brands.ToListAsync();
+            var data =await db.Brands
+                .Where(b => b.DeletedDate == null)
+                .ToListAsync();
+
             return View(data);
         }
         public async Task<IActionResult>Details(int id)
@@ -28,7 +31,7 @@ namespace Tarz.WebUI.Areas.Admin.Controllers
             {
                 return NotFound();//404
             }
-            var entity = await db.Brands.FirstOrDefaultAsync(b => b.Id == id);
+            var entity = await db.Brands.FirstOrDefaultAsync(b => b.Id == id && b.DeletedDate == null);
 
             if (entity == null)
             {
@@ -61,7 +64,7 @@ namespace Tarz.WebUI.Areas.Admin.Controllers
             {
                 return NotFound();//404
             }
-            var entity = await db.Brands.FirstOrDefaultAsync(b=>b.Id == id);
+            var entity = await db.Brands.FirstOrDefaultAsync(b=>b.Id == id && b.DeletedDate == null);
 
             if (entity == null)
             {
@@ -82,7 +85,7 @@ namespace Tarz.WebUI.Areas.Admin.Controllers
             {
                 return BadRequest();
             }
-            var entity = await db.Brands.FirstOrDefaultAsync(b => b.Id == id);
+            var entity = await db.Brands.FirstOrDefaultAsync(b => b.Id == id && b.DeletedDate == null);
 
             if (entity == null)
             {
@@ -96,6 +99,35 @@ namespace Tarz.WebUI.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
 
             
+        }
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            throw new Exception("erorrrrr");
+            if (id < 1)
+            {
+                return Json(new
+                {
+                    error=true,
+                    message = "Məlumat tapılmadı"
+                });
+            }
+            var entity = await db.Brands.FirstOrDefaultAsync(b => b.Id == id && b.DeletedDate == null);
+
+            if (entity == null)
+                return Json(new
+                {
+                    error = true,
+                    message = "Məlumat tapılmadı"
+                });
+            entity.DeletedDate = DateTime.UtcNow.AddHours(4);
+           await db.SaveChangesAsync();
+
+            return Json(new
+            {
+                error = false,
+                message = "Məlumat silindi"
+            });
         }
     }
 }

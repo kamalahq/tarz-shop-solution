@@ -1092,6 +1092,8 @@ form input[type="submit"] {
     transition: ease all 0.1s;
 }
 
+
+
 form input[type="submit"]:hover,
 form input[type="submit"]:focus {
     background: #f7444e;
@@ -1118,6 +1120,10 @@ form input[type="submit"]:focus {
     color: #f7444e;
     font-size: 15px;
     font-weight: 400;
+}
+
+form input[type="email"] {
+    text-transform: lowercase !important;
 }
 
 http://kute-themes.com/html/boutique/html/index.html
