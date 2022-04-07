@@ -13,6 +13,6 @@ namespace Tarz.WebUI.Models.Entities
        
         public string HexCode { get; set; }
         public string Description { get; set; }
-       
+        public virtual ICollection<ProductSizeColorPrice> ProductSizeColorPrice { get; set; }
     }
 }

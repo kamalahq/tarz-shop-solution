@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tarz.WebUI.Models.DataContexts;
 
 namespace Tarz.WebUI.Migrations
 {
     [DbContext(typeof(TarzDbContext))]
-    partial class TarzDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220407202503_Product")]
+    partial class Product
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -216,33 +218,6 @@ namespace Tarz.WebUI.Migrations
                     b.ToTable("Faqs");
                 });
 
-            modelBuilder.Entity("Tarz.WebUI.Models.Entities.Gender", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("CreatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("DeletedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Genders");
-                });
-
             modelBuilder.Entity("Tarz.WebUI.Models.Entities.ProductSize", b =>
                 {
                     b.Property<int>("Id")
@@ -298,9 +273,6 @@ namespace Tarz.WebUI.Migrations
                     b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("GenderId")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
@@ -317,13 +289,11 @@ namespace Tarz.WebUI.Migrations
 
                     b.HasIndex("ColorId");
 
-                    b.HasIndex("GenderId");
-
                     b.HasIndex("ProductId");
 
                     b.HasIndex("ProductSizeId");
 
-                    b.ToTable("ProductSizeColorPrices");
+                    b.ToTable("ProductSizeColorPrice");
                 });
 
             modelBuilder.Entity("Tarz.WebUI.Models.Entities.Products", b =>
@@ -351,9 +321,6 @@ namespace Tarz.WebUI.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("GenderId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -366,8 +333,6 @@ namespace Tarz.WebUI.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("GenderId");
 
                     b.ToTable("Products");
                 });
@@ -422,10 +387,6 @@ namespace Tarz.WebUI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Tarz.WebUI.Models.Entities.Gender", null)
-                        .WithMany("ProductSizeColorPrice")
-                        .HasForeignKey("GenderId");
-
                     b.HasOne("Tarz.WebUI.Models.Entities.Products", "Product")
                         .WithMany("ProductSizeColorPrice")
                         .HasForeignKey("ProductId")
@@ -451,15 +412,7 @@ namespace Tarz.WebUI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Tarz.WebUI.Models.Entities.Gender", "Gender")
-                        .WithMany()
-                        .HasForeignKey("GenderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Category");
-
-                    b.Navigation("Gender");
                 });
 
             modelBuilder.Entity("Tarz.WebUI.Models.Entities.Category", b =>
@@ -470,11 +423,6 @@ namespace Tarz.WebUI.Migrations
                 });
 
             modelBuilder.Entity("Tarz.WebUI.Models.Entities.Color", b =>
-                {
-                    b.Navigation("ProductSizeColorPrice");
-                });
-
-            modelBuilder.Entity("Tarz.WebUI.Models.Entities.Gender", b =>
                 {
                     b.Navigation("ProductSizeColorPrice");
                 });

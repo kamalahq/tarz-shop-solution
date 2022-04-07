@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Products>
+@{
+    ViewData["Title"] = "Index";
+}
+<h1>Products</h1>
+
+<table class="table table-bordered table-striped">
+
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th></th>
+        </tr>
+
+    </thead>
+
+    <tbody>
+@foreach (var item in Model)
+{
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.ProductImages.FirstOrDefault().ImagePath</td>
+            <td>@item.Name</td>
+            <td>@item.Quantity</td>
+            <td>
+                <a class="badge badge-primary" style="display:block; width: 50px; margin:7px;" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a class="badge badge-success" style="display:block; width: 50px; margin:7px;" asp-action="Delete" asp-route-id="@item.Id">Edit</a>
+                <a class="badge badge-warning" style="display:block; width: 50px; margin:7px;" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+
+</table>
+
