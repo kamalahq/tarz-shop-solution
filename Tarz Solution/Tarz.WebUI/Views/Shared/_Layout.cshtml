@@ -179,14 +179,26 @@
                                     <p>Subscribe by our newsletter and get update protidin.</p>
                                 </div>
                                 <div class="form_sub">
-                                    <form>
-                                        <fieldset>
-                                            <div class="field">
-                                                <input type="email" placeholder="Enter Your Mail" name="email" />
-                                                <input type="submit" value="Subscribe" />
-                                            </div>
-                                        </fieldset>
-                                    </form>
+                                   <form method="post" 
+                                          asp-controller="Home"
+                                         asp-action="Subscribe"
+                                         class="input-wrapper input-wrapper-inline"
+                                         id="frmSubscribe">
+                                       <input  type="email"
+                                              class="form-control"
+                                              name="email"
+                                              id="email"
+                                              placeholder="Emailinizi bura qeyd edin"
+                                              data-rule-required="true"
+                                              data-msg-required="Boş buraxila bilməz"
+                                              data-rule-email="true"
+                                              data-msg-email="E-poçt ünvanınız düzgün deyil"/>
+                                       
+                                       <button class="btn btn-primary btn-rounded btn-md ml-2" type="submit">
+                                           subscripe<i class="d-icon-arrow-right"></i>
+                                       </button>
+                                   
+                                   </form>
                                 </div>
                             </div>
                         </div>
@@ -203,5 +215,36 @@
     <script src="~/assets/js/popper.min.js"></script>
     <script src="~/assets/js/bootstrap.js"></script>
     <script src="~/assets/js/custom.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $('#frmSubscribe').submit(function (e) {
+                e.preventDefault();
+
+                if ($(e.currentTarget).valid() != true)
+                    return;
+
+                const formData = new FormData(e.formData);
+                $.ajax({
+                  url:'@Url.Action("Subscribe")',
+                    type: 'POST'
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+
+                    },
+                   error: function (response) {
+
+                    }
+
+                });
+
+            }).validate({
+              errorElement:'span'
+            });
+        });
+    </script>
 </body>
 </html>

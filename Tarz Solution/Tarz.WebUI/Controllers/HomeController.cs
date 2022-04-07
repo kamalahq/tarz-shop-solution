@@ -55,5 +55,26 @@ namespace Tarz.WebUI.Controllers
         {
             return View();
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Subscribe([Bind("Email")] Subscribe model)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Subscribes.Add(model);
+                db.SaveChanges();
+                //todo
+                return Json(new
+                {
+                    error = false,
+                    message = "Sorğunuz uğurla qeydə alindi.Zəhmət olmasa E-poçtunuza göndərilmiş linkdən abunəliyi tamamlayasınız"
+                });
+            }
+            return Json(new
+            {
+                error = true,
+                message="Sorğunun icrası zamanı xəta yarandı.Biraz sonra yeniden yoxlayın"
+            });
+        }
     }
 }
