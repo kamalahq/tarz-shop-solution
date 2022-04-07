@@ -1,15 +1,14 @@
-﻿@model List<Brand>
+﻿@model IEnumerable<Category>
 @{
     ViewData["Title"] = "Index";
 }
 
-<!-- Page-header start -->
 <div class="page-header">
     <div class="row align-items-end">
         <div class="col-lg-8">
             <div class="page-header-title">
                 <div class="d-inline">
-                    <h4>Brands</h4>
+                    <h4>Category</h4>
                     <span>
                         lorem ipsum dolor sit amet, consectetur adipisicing
                         elit
@@ -103,8 +102,8 @@
 </div>
 
 @section addjs{
- <script src="~/libs/sweetalert/sweetalert.min.js"></script>
- <script>
+    <script src="~/libs/sweetalert/sweetalert.min.js"></script>
+    <script>
          function removeEntity(entityId,name) {
             swal({
                 title: "Diqqet!",
@@ -134,5 +133,5 @@
                     }
                 });
         };
- </script>
+    </script>
 }
