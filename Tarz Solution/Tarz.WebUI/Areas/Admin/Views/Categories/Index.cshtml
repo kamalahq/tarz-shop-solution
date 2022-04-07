@@ -41,7 +41,7 @@
                 </div>
                 <div class="card-block table-border-style">
                     <div class="table-responsive">
-                        <table class="table">
+                        <table class="table tree">
                             <thead>
                                 <tr>
                                     <th class="row-identifier">#</th>
@@ -58,7 +58,7 @@
                                 {
                                     @foreach (var item in Model)
                                     {
-                                        <tr>
+                                        <tr class="treegrid-@item.Id @(item.ParentId!=null?$"treegrid-parent-{item.ParentId}" : "") ">
                                             <th class="row-identifier" scope="row">@item.Id</th>
                                             <td>@item.Name</td>
                                             <td class="cell-operation">
@@ -101,8 +101,14 @@
     </div>
 </div>
 
+
+@section addcss{
+
+    <link href="~/libs/jquery-treegrid/css/jquery.treegrid.min.css" rel="stylesheet" />
+}
 @section addjs{
     <script src="~/libs/sweetalert/sweetalert.min.js"></script>
+    <script src="~/libs/jquery-treegrid/js/jquery.treegrid.min.js"></script>
     <script>
          function removeEntity(entityId,name) {
             swal({
@@ -133,5 +139,9 @@
                     }
                 });
         };
+        $('.tree').treegrid();
     </script>
 }
+
+
+
