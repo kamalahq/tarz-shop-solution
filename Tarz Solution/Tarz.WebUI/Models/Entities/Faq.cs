@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace Tarz.WebUI.Models.Entities
 {
-    public class Color : BaseEntity
+    public class Faq : BaseEntity
     {
-        
-        public string Name { get; set; }
-       
-        public string HexCode { get; set; }
-        public string Description { get; set; }
-       
+        [Required]
+        public string Question { get; set; }
+
+        [Required]
+        public string Anwser { get; set; }
     }
 }

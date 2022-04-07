@@ -74,7 +74,7 @@ namespace Tarz.WebUI.Areas.Admin.Controllers
             return View(entity);
         }
         [HttpPost]
-        public async Task<IActionResult> Edit([FromRoute]int id,Brand model)
+        public async Task<IActionResult> Edit([FromRoute]int id, Brand model)
         {
             if (!ModelState.IsValid)
             {

@@ -24,6 +24,17 @@ namespace Tarz.WebUI.Controllers
         {
             return View();
         }
+        public IActionResult Faq()
+        {
+            var faqs = db.Faqs.Where(f => f.DeletedByUserId == null).ToList();
+            return View(faqs);
+        }
+
+
+        public IActionResult AllProducts()
+        {
+            return View();
+        }
         [HttpPost]
         public IActionResult ContactUs(Contact contact)
         {

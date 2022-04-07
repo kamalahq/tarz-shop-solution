@@ -1,0 +1,38 @@
+﻿
+@model IEnumerable<Faq>
+@{     
+    ViewData["Title"] = "Faqs";
+}
+
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mt-10">
+                <div class="accordion accordion-border accordion-boxed accordion-plus">
+                    @foreach (var item in Model)
+                    {
+                        <div class="card">
+                            <div class="card-header">
+                                <a href="#collapse@(item.Id)" class="collapsed">
+                                    @item.Question
+                                </a>
+                            </div>
+                            <div id="collapse@(item.Id)"class="collapsed" >
+                                <div class="card-body">
+                                    <p>
+                                        @item.Anwser
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    }
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Tarz.WebUI.Models.Entities
 {
-    public class Category
+    public class Category : BaseEntity
     {
-        public int Id { get; set; }
+        
         [Required]
         public string Name { get; set; }
         public string Description { get; set; }
@@ -17,6 +17,6 @@ namespace Tarz.WebUI.Models.Entities
         public virtual Category Parent  { get; set; }
         public virtual ICollection<Category> Children { get; set; }
 
-        public DateTime? DeletedDate { get; set; }
+        
     }
 }

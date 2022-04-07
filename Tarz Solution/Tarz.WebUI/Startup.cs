@@ -43,11 +43,7 @@ namespace Tarz.WebUI
             {
 
 
-                cfg.MapAreaControllerRoute(
-               name: "areas",
-               areaName: "Admin",
-                pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}"
-              );
+               
 
 
                 cfg.MapControllerRoute(
@@ -58,6 +54,12 @@ namespace Tarz.WebUI
                        controller = "home",
                        action = "index"
                    });
+
+                cfg.MapAreaControllerRoute(
+              name: "areas",
+              areaName: "Admin",
+               pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}"
+             );
 
             });
         }
