@@ -51,11 +51,11 @@ namespace Tarz.WebUI.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Colors.Add(model);
-               await db.SaveChangesAsync();
+                db.Brands.Add(model);
+                await db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-           
+
             return View(model);
         }
         public async Task <IActionResult> Edit(int id)

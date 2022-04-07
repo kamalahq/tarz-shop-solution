@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Tarz Solution",
+    "\\Tarz Solution\\Tarz.WebUI",
+    "\\Tarz Solution\\Tarz.WebUI\\Models"
   ],
-  "SelectedNode": "\\C:\\Users\\TOSHIBA\\Source\\Repos\\tarz-shop-solution",
+  "SelectedNode": "\\Tarz Solution\\Tarz.WebUI",
   "PreviewInSolutionExplorer": false
 }
