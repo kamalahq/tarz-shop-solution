@@ -1,4 +1,4 @@
-﻿@model List<Brand>
+﻿@model List<Color>
 @{
     ViewData["Title"] = "Index";
 }
@@ -46,6 +46,7 @@
                             <thead>
                                 <tr>
                                     <th class="row-identifier">#</th>
+                                    <th>Code</th>
                                     <th>Name</th>
                                     <th class="cell-operation">
                                         <a asp-action="Create" class="btn btn-success btn-square text-white">
@@ -59,23 +60,24 @@
                                 {
                                     @foreach (var item in Model)
                                     {
-                                        <tr>
-                                            <th class="row-identifier" scope="row">@item.Id</th>
-                                            <td>@item.Name</td>
-                                            <td class="cell-operation">
-                                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-square text-white">
-                                                    <i class="fas fa-pencil-alt "></i>
-                                                </a>
-                                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-square text-white">
-                                                    <i class="fas fa-eye "></i>
-                                                </a>
-                                                <a oncilck="removeEntity(@item.Id,'@item.Name')" class="btn btn-danger btn-square  text-white">
-                                                    <i class="fas fa-trash-alt "></i>
-                                                </a>
+                                <tr>
+                                    <th class="row-identifier" scope="row">@item.Id</th>
+                                    <td><span class="color-viewer" data-hexcode="@item.HexCode">@item.HexCode</span></td>
+                                    <td>@item.Name</td>
+                                    <td class="cell-operation">
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-square text-white">
+                                            <i class="fas fa-pencil-alt "></i>
+                                        </a>
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-square text-white">
+                                            <i class="fas fa-eye "></i>
+                                        </a>
+                                        <a oncilck="removeEntity(@item.Id,'@item.Name')" class="btn btn-danger btn-square  text-white">
+                                            <i class="fas fa-trash-alt "></i>
+                                        </a>
 
-                                            </td>
+                                    </td>
 
-                                        </tr>
+                                </tr>
                                     }
                                 }
                                 else

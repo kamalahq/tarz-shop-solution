@@ -14,6 +14,13 @@
         }
     },
     beforeSend: function (xhr) {
-     
+        $('.theme-loader').fadeIn('slow', function () {
+            $(this).show();
+        });
+    },
+    complate: function () {
+        $('.theme-loader').fadeOut('slow', function () {
+            $(this).hide();
+        });
     }
 });

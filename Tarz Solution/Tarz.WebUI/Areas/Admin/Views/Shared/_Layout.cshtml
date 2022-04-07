@@ -96,6 +96,16 @@
             border-radius: 2px;
             border: 1px solid #ccc
         }
+        .color-viewer{
+          display:inline-block;
+        }
+            .color-viewer::before {
+                display: inline-block;
+                border:1px solid #cccccc;
+                width:25px;
+                height:25px;
+                background-color:attr(data-hexcode);
+            }
     </style>
     @RenderSection("addcss", required: false)
 </head>
@@ -150,6 +160,7 @@
                         <a class="mobile-menu" id="mobile-collapse" href="#!">
                             <i class="feather icon-menu"></i>
                         </a>
+                        
                         <a asp-controller="Home" asp-action="Index">
                             <img class="img-fluid" src="~/admin/assets/images/logo.png" alt="Theme-Logo" />
                         </a>

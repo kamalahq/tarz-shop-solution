@@ -10,16 +10,16 @@ using Tarz.WebUI.Models.Entities;
 namespace Tarz.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class BrandsController : Controller
+    public class ColorsController : Controller
     {
         readonly TarzDbContext db;
-        public BrandsController(TarzDbContext db)
+        public ColorsController(TarzDbContext db)
         {
             this.db = db;
         }
         public async  Task <IActionResult> Index()
         {
-            var data =await db.Brands
+            var data =await db.Colors
                 .Where(b => b.DeletedDate == null)
                 .ToListAsync();
 
@@ -31,7 +31,7 @@ namespace Tarz.WebUI.Areas.Admin.Controllers
             {
                 return NotFound();//404
             }
-            var entity = await db.Brands.FirstOrDefaultAsync(b => b.Id == id && b.DeletedDate == null);
+            var entity = await db.Colors.FirstOrDefaultAsync(b => b.Id == id && b.DeletedDate == null);
 
             if (entity == null)
             {
@@ -51,7 +51,7 @@ namespace Tarz.WebUI.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Brands.Add(model);
+                db.Colors.Add(model);
                await db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -64,7 +64,7 @@ namespace Tarz.WebUI.Areas.Admin.Controllers
             {
                 return NotFound();//404
             }
-            var entity = await db.Brands.FirstOrDefaultAsync(b=>b.Id == id && b.DeletedDate == null);
+            var entity = await db.Colors.FirstOrDefaultAsync(b=>b.Id == id && b.DeletedDate == null);
 
             if (entity == null)
             {
@@ -85,7 +85,7 @@ namespace Tarz.WebUI.Areas.Admin.Controllers
             {
                 return BadRequest();
             }
-            var entity = await db.Brands.FirstOrDefaultAsync(b => b.Id == id && b.DeletedDate == null);
+            var entity = await db.Colors.FirstOrDefaultAsync(b => b.Id == id && b.DeletedDate == null);
 
             if (entity == null)
             {
@@ -94,7 +94,7 @@ namespace Tarz.WebUI.Areas.Admin.Controllers
             entity.Name = model.Name;
             entity.Description = model.Description;
 
-            //db.Brands.Update(entity)
+           
             await db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
 
@@ -103,7 +103,7 @@ namespace Tarz.WebUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
-          //  throw new Exception("erorrrrr");
+          
             if (id < 1)
             {
                 return Json(new
@@ -112,7 +112,7 @@ namespace Tarz.WebUI.Areas.Admin.Controllers
                     message = "Məlumat tapılmadı"
                 });
             }
-            var entity = await db.Brands.FirstOrDefaultAsync(b => b.Id == id && b.DeletedDate == null);
+            var entity = await db.Colors.FirstOrDefaultAsync(b => b.Id == id && b.DeletedDate == null);
 
             if (entity == null)
                 return Json(new
@@ -121,6 +121,7 @@ namespace Tarz.WebUI.Areas.Admin.Controllers
                     message = "Məlumat tapılmadı"
                 });
             entity.DeletedDate = DateTime.UtcNow.AddHours(4);
+            db.Colors.Remove(entity);
            await db.SaveChangesAsync();
 
             return Json(new
