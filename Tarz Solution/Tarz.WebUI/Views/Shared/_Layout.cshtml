@@ -18,6 +18,7 @@
     <link href="~/assets/css/font-awesome.min.css" rel="stylesheet" />
     <link href="~/assets/css/style.css" rel="stylesheet" />
     <link href="~/assets/css/responsive.css" rel="stylesheet" />
+    <link href="~/libs/toastr.js/toastr.css" rel="stylesheet" />
 </head>
 <body>
     <header class="header_section">
@@ -33,10 +34,10 @@
                             <a class="nav-link" asp-controller="Home" asp-action="Index">Home <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="AboutUs">Men</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="AllProducts">Men</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="AboutUs">Women</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="AllProducts">Women</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Home" asp-action="AboutUs">About</a>
@@ -45,15 +46,15 @@
                             <a class="nav-link" asp-controller="Home" asp-action="Faq">Faqs</a>
                         </li>
                         <!--<li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> <span class="nav-label">About  <span class="caret"></span></a>-->
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> <span class="nav-label">About  <span class="caret"></span></a>-->
 
 
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Home" asp-action="AllProducts">Product</a>
                         </li>
-                        <li class="nav-item">
+                        @*<li class="nav-item">
                             <a class="nav-link" href="blog_list.html">Blog</a>
-                        </li>
+                        </li>*@
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Home" asp-action="ContactUs">Contact</a>
                         </li>
@@ -179,26 +180,26 @@
                                     <p>Subscribe by our newsletter and get update protidin.</p>
                                 </div>
                                 <div class="form_sub">
-                                   <form method="post" 
+                                    <form method="post"
                                           asp-controller="Home"
-                                         asp-action="Subscribe"
-                                         class="input-wrapper input-wrapper-inline"
-                                         id="frmSubscribe">
-                                       <input  type="email"
-                                              class="form-control"
-                                              name="email"
-                                              id="email"
-                                              placeholder="Emailinizi bura qeyd edin"
-                                              data-rule-required="true"
-                                              data-msg-required="Boş buraxila bilməz"
-                                              data-rule-email="true"
-                                              data-msg-email="E-poçt ünvanınız düzgün deyil"/>
-                                       
-                                       <button class="btn btn-primary btn-rounded btn-md ml-2" type="submit">
-                                           subscripe<i class="d-icon-arrow-right"></i>
-                                       </button>
-                                   
-                                   </form>
+                                          asp-action="Subscribe"
+                                          class="input-wrapper input-wrapper-inline"
+                                          id="frmSubscribe">
+                                        <input type="email"
+                                               class="form-control"
+                                               name="email"
+                                               id="email"
+                                               placeholder="Emailinizi bura qeyd edin"
+                                               data-rule-required="true"
+                                               data-msg-required="Boş buraxila bilməz"
+                                               data-rule-email="true"
+                                               data-msg-email="E-poçt ünvanınız düzgün deyil" />
+
+                                        <button class="btn btn-primary btn-rounded btn-md ml-2" type="submit">
+                                            subscripe<i class="d-icon-arrow-right"></i>
+                                        </button>
+                                        @Html.AntiForgeryToken()
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -215,6 +216,8 @@
     <script src="~/assets/js/popper.min.js"></script>
     <script src="~/assets/js/bootstrap.js"></script>
     <script src="~/assets/js/custom.js"></script>
+    <script src="~/libs/jquery-validate/jquery.validate.js"></script>
+    <script src="~/libs/toastr.js/toastr.min.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -225,7 +228,7 @@
                 if ($(e.currentTarget).valid() != true)
                     return;
 
-                const formData = new FormData(e.formData);
+                const formData = new FormData(e.currentTarget);
                 $.ajax({
                   url:'@Url.Action("Subscribe")',
                     type: 'POST'
@@ -233,16 +236,48 @@
                     contentType: false,
                     processData: false,
                     success: function (response) {
+                        console.log(response);
 
+                        if (response.error == false) {
+                            e.currentTarget.reset();
+                            toastr.success(response.message, "Uğurlu")
+                            /*$(e.currentTarget).find('.is-valid').removeClass('is-valid');*/
+                        }
+                        else {
+                            toatrs.error(response.message,"Xeta")
+                        }
                     },
-                   error: function (response) {
+                    error: function (response) {
+                        toastr.options = {
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": true,
+                            "progressBar": "toast-bottom-right",
+                            "preventDuplicates": true,
+                            "onclick": null,
+                            "showDuration": "300",
+                            "hideDuration": "1000",
+                            "timeOut": "5000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "liner",
+                            "showMethod": "fadeIn",
+                            "hideMethod":"fadeOut"
+                        }
+                       toastr.error("Təyin edilməyən xəta baş verib,biraz sonra yeniden yoxlayın", "Xeta")
 
                     }
 
                 });
 
             }).validate({
-              errorElement:'span'
+                errorElement: 'span'
+                highlight: function (element, errorClass, validClass) {
+                    $(element).addClass('is-invalid').removeClass('is-valid');
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).addClass('is-invalid').removeClass('is-valid');
+                }
             });
         });
     </script>

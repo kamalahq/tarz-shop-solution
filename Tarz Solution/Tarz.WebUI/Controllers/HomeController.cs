@@ -61,6 +61,24 @@ namespace Tarz.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
+                var current = db.Subscribes.FirstOrDefault(s => s.Email.Equals(model.Email));
+                if (current!=null && current.EmailConfirmed == true)
+                {
+                    return Json(new
+                    {
+                        error = false,
+                        message = "Bu e-poctladaha once qeydiyyatdan kecmisniz."
+                    });
+                }
+                else if(current != null && (current.EmailConfirmed ?? false == false))
+                {
+                    return Json(new
+                    {
+                        error = false,
+                        message = "E-pocta gonderilmis linkle tamamlanmayib."
+                    });
+                }
+
                 db.Subscribes.Add(model);
                 db.SaveChanges();
                 //todo
