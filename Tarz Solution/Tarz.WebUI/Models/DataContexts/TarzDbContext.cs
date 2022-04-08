@@ -9,6 +9,10 @@ namespace Tarz.WebUI.Models.DataContexts
 {
     public class TarzDbContext : DbContext
     {
+        public TarzDbContext()
+        {
+        }
+
         public TarzDbContext(DbContextOptions options)
             :base(options)
         {
@@ -27,6 +31,7 @@ namespace Tarz.WebUI.Models.DataContexts
         public DbSet<ProductSize> Sizes { get; set; }
         public DbSet<ProductSizeColorPrice> ProductSizeColorPrices { get; set; }
         public DbSet<Gender> Genders { get; set; }
+        
 
     }
 }

@@ -10,9 +10,11 @@ namespace Tarz.WebUI.Models.Entities
         public string Name { get; set; }
 
         public int Quantity { get; set; }
+        public string StockKeepingUnit { get; set; }
 
         public decimal Price { get; set; }
         public string Description { get; set; }
+        public virtual Brand Brand { get; set; }
 
         public int GenderId { get; set; }
         public Gender Gender { get; set; }
@@ -22,6 +24,7 @@ namespace Tarz.WebUI.Models.Entities
 
         public virtual ICollection<ProductSizeColorPrice> ProductSizeColorPrice { get; set; }
         public virtual ICollection<ProductImages> ProductImages { get; set; }
+          
 
 
 

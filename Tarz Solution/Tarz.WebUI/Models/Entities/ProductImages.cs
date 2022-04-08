@@ -9,7 +9,7 @@ namespace Tarz.WebUI.Models.Entities
     {
         public string ImagePath { get; set; }
         public int ProductId { get; set; }
-        public Products Product { get; set; }
+        public virtual Products Product { get; set; }
         public bool IsMain { get; set; }
 
     }
